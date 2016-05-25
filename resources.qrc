@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>images/TheWorkingGroup_video_pause.ico</file>
+        <file>images/TheWorkingGroup_video_play.ico</file>
+        <file>images/TheWorkingGroup_video_stop.ico</file>
+        <file>images/chess.png</file>
+        <file>images/chess1.png</file>
+        <file>images/screenshot.png</file>
+        <file>images/trash.png</file>
+        <file>images/1pr.png</file>
+        <file>images/2pr.png</file>
+    </qresource>
+</RCC>
