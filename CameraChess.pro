@@ -13,7 +13,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = CameraChess
 TEMPLATE = app
 #opencv
-#INCLUDEPATH += "H:/Install/opencv/opencv/build/include"
+
 INCLUDEPATH += "C:/Users/ROOT/Documents/Development/opencv/opencv/build/include"
 INCLUDEPATH += "C:/Program Files (x86)/Microsoft SDKs/Windows/v7.1A/Include"
 
@@ -33,7 +33,7 @@ LIBS += -L"C:\Program Files\Microsoft SDKs\Windows\v7.1\Lib" -lOleAut32
 LIBS += -L"C:\Program Files\Microsoft SDKs\Windows\v7.1\Lib" -lImm32
 LIBS += -L"C:\Program Files\Microsoft SDKs\Windows\v7.1\Lib" -lmsctfmonitor
 LIBS += -L"C:\Program Files\Microsoft SDKs\Windows\v7.1\Lib"  -lUser32
-#LIBS += -L"G:/Program Files (x86)/Microsoft SDKs/Windows/v7.1A/Lib/" -lKernel32
+
 
 LIBS += -L"C:\Users\ROOT\Documents\Development\opencv\opencv\build\x86\vc10\lib" -lopencv_core249
 LIBS += -L"C:\Users\ROOT\Documents\Development\opencv\opencv\build\x86\vc10\lib" -lopencv_highgui249

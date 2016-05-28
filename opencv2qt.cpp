@@ -9,11 +9,10 @@
  */
 QImage cvtCvMat2QImage(const cv::Mat & image)
 {
-//    cv::Mat img;
-//    image.convertTo(img,CV_BGR2RGB);
+
     qDebug() << "image.channels=" << image.channels();
     QImage qtemp;
-//    QImage qtemp = QImage( image.data, image.cols, image.rows, image.step, QImage::Format_RGB888 );
+
     if(!image.empty() && image.depth() == CV_8UC1)
     {
         const unsigned char * data = image.data;
@@ -31,7 +30,7 @@ QImage cvtCvMat2QImage(const cv::Mat & image)
     {
         qDebug() << "Wrong image format, must be 8_bits\n";
     }
-//    return qtemp.rgbSwapped();
+
     return qtemp;
 
 }

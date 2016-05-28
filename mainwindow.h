@@ -42,7 +42,7 @@
 #include <math.h>
 
 //WinAPI DirectShow
-//#include <qwindowdefs_win.h>
+#include <qwindowdefs_win.h>
 #include <qt_windows.h>
 #include <dshow.h>
 #include <strmif.h>
@@ -51,14 +51,12 @@
 #include "Setupapi.h"
 #include <devguid.h>
 #include <initguid.h>
-//#include <strsafe.h>
+
 #include <Windows.h>
 #include <WinUser.h>
 #include <WinGDI.h>
-//#include <Mfidl.h>
+#include <Mfidl.h>
 
-//#include <mfapi.h>
-//#include <mfplay.h>
 
 
 //проектные файлы
@@ -128,8 +126,6 @@ public:
     void searchCameras();
     void searchDisplays();
 
-//    int getCamerasList();
-
     int getMonitorWidth();
     int getMonitorHeight();
     int getMonitorBitrate();
@@ -180,7 +176,6 @@ protected slots :
 
 private:
     Ui::MainWindow *ui;
-//    Camera *camera_;
 
     cv::Mat capMonitor_ ;
 
@@ -197,7 +192,7 @@ private:
     SharedImageBuffer *sharedImageBuffer;
 
 
-    /*Функции извлечения названий и разрешнений камер через DirectShow*/
+    /*Функции извлечения названий и разрешений камер через DirectShow*/
     void _FreeMediaType(AM_MEDIA_TYPE& mt);
     HRESULT CamCaps(IBaseFilter *pBaseFilter);
     void process_filter(IBaseFilter *pBaseFilter);
@@ -208,11 +203,10 @@ private:
 
 
 /*Флаги внутри приложения */
-    bool startPressed; //= false;
-    bool stopPressed; //= false;
-   /* bool spacePressed;*/ //= false;
-    bool gridActive; //= false;
-    bool gridVisible;// = false;
+    bool startPressed;
+    bool stopPressed;
+    bool gridActive;
+    bool gridVisible;
     bool monitorsFound;
 
 

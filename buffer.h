@@ -44,10 +44,13 @@ template<class T> Buffer<T>::Buffer(int size)
     clearBuffer_add = new QSemaphore(1);
     clearBuffer_get = new QSemaphore(1);
 }
+/**
+ *  Добавление кадра в буфер
+ */
 
 template<class T> void Buffer<T>::add(const T& data, bool dropIfFull)
 {
-    // Acquire semaphore
+    // освобождение семафора
     clearBuffer_add->acquire();
     // If dropping is enabled, do not block if buffer is full
     if(dropIfFull)
@@ -78,7 +81,9 @@ template<class T> void Buffer<T>::add(const T& data, bool dropIfFull)
     // Release semaphore
     clearBuffer_add->release();
 }
-
+/**
+ *  Получение последнего кадра из буфера
+ */
 template<class T> T Buffer<T>::get()
 {
     // Local variable(s)
@@ -96,7 +101,9 @@ template<class T> T Buffer<T>::get()
     // Return item to caller
     return data;
 }
-
+/**
+ *  Очистка буфера
+ */
 template<class T> bool Buffer<T>::clear()
 {
     // Check if buffer contains items
@@ -133,22 +140,31 @@ template<class T> bool Buffer<T>::clear()
     else
         return false;
 }
-
+/**
+ *  Получение размера буфера
+ */
 template<class T> int Buffer<T>::size()
 {
     return queue.size();
 }
-
+/**
+ *  Получение макс. размера буфера
+ *  (максимально в приложении в буфер помещается 100 кадров).
+ */
 template<class T> int Buffer<T>::maxSize()
 {
     return bufferSize;
 }
-
+/**
+ *  Проверка, полон ли буфер
+ */
 template<class T> bool Buffer<T>::isFull()
 {
     return queue.size()==bufferSize;
 }
-
+/**
+ *  Проверка, пуст ли буфер
+ */
 template<class T> bool Buffer<T>::isEmpty()
 {
     return queue.size()==0;

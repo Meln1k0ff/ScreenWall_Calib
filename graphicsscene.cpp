@@ -37,17 +37,17 @@ void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
     else if ((dragItems_[1]->isSelected()) && (!checkBounds(dragItems_[1]->x_,dragItems_[1]->y_,this->width(),this->height(),1))){
         qDebug() << "p2 out of bounds";
         resetFrame();
-//        this->addItem(dragItems_[1]);
+
     }
     else if ((dragItems_[2]->isSelected()) && (!checkBounds(dragItems_[2]->x_,dragItems_[2]->y_,this->width(),this->height(),2))){
         qDebug() << "p3 out of bounds";
         resetFrame();
-//        this->addItem(dragItems_[2]);
+
     }
     else if ( (dragItems_[3]->isSelected()) && (!checkBounds(dragItems_[3]->x_,dragItems_[3]->y_,this->width(),this->height(),3))){
         qDebug() << "p4 out of bounds";
         resetFrame();
-//        this->addItem(dragItems_[3]);
+
     }
 
     QGraphicsScene::mouseMoveEvent(event);
@@ -67,7 +67,7 @@ void GraphicsScene::keyPressEvent(QKeyEvent *event)
 {
 
 }
-/**/
+
 /**
  * @brief GraphicsScene::restartFrame       Метод рисует точки рамки на начальных позициях
  */
@@ -207,15 +207,15 @@ void GraphicsScene::resetFrame()
         }
         else if (!checkBounds(dragItems_[1]->x_,dragItems_[1]->y_,this->width(),this->height(),1)){
             qDebug() << "p2 out of bounds";
-    //        this->addItem(dragItems_[1]);
+
         }
         else if (!checkBounds(dragItems_[2]->x_,dragItems_[2]->y_,this->width(),this->height(),2)){
             qDebug() << "p3 out of bounds";
-    //        this->addItem(dragItems_[2]);
+
         }
         else if (!checkBounds(dragItems_[3]->x_,dragItems_[3]->y_,this->width(),this->height(),3)){
             qDebug() << "p4 out of bounds";
-    //        this->addItem(dragItems_[3]);
+
         }
 
         this->addItem(dragItems_[0]);

@@ -62,7 +62,7 @@ void SharedImageBuffer::removeByDeviceNumber(int deviceNumber)
 }
 
 /**
- * @brief SharedImageBuffer::sync           Выполнить синхронизацию потоков
+ * @brief SharedImageBuffer::sync                       Выполнить синхронизацию потоков
  * @param deviceNumber
  */
 void SharedImageBuffer::sync(int deviceNumber)
@@ -88,7 +88,7 @@ void SharedImageBuffer::sync(int deviceNumber)
 
 
 /**
- * @brief SharedImageBuffer::wakeAll        Разбудить все потоки
+ * @brief SharedImageBuffer::wakeAll                       Разбудить все потоки
  */
 void SharedImageBuffer::wakeAll()
 {
@@ -96,21 +96,38 @@ void SharedImageBuffer::wakeAll()
     wc.wakeAll();
 }
 
+/**
+ * @brief SharedImageBuffer::setSyncEnabled                 Включить синхронизацию потоков
+ * @param enable
+ */
+
 void SharedImageBuffer::setSyncEnabled(bool enable)
 {
     doSync=enable;
 }
-
+/**
+ * @brief SharedImageBuffer::isSyncEnabledForDeviceNumber       Включена ли синхронизация для определенного устройства
+ * @param deviceNumber                                          Номер устройства
+ * @return
+ */
 bool SharedImageBuffer::isSyncEnabledForDeviceNumber(int deviceNumber)
 {
     return syncSet.contains(deviceNumber);
 }
-
+/**
+ * @brief SharedImageBuffer::getSyncEnabled                     Включена ли синхронизация потоков
+ * @return
+ */
 bool SharedImageBuffer::getSyncEnabled()
 {
     return doSync;
 }
-
+/**
+ * @brief SharedImageBuffer::containsImageBufferForDeviceNumber     Включена ли поддержка буферизации для
+ *                                                                  каждого кадра
+ * @param deviceNumber                                              Номер устройства
+ * @return
+ */
 bool SharedImageBuffer::containsImageBufferForDeviceNumber(int deviceNumber)
 {
     return imageBufferMap.contains(deviceNumber);

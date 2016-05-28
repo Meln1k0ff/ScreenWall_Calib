@@ -81,8 +81,7 @@ void SaveImageDialog::on_saveGridSnapshotBtn_clicked()
         qDebug()<<dirPath;
         QFile file(dirPath);
         file.open(QIODevice::WriteOnly);
-//        QDataStream out(&file);
-//        out << displayPixmap_;
+
         gridPixmap_.save(&file, "PNG");
 
     }

@@ -33,7 +33,7 @@ cv::Mat cvtQImage2CvMat(const QImage & image)
     }
     else
     {
-        printf("Failed to convert image : depth=%d(!=32) format=%d(!=%d)\n", image.depth(), image.format(), QImage::Format_RGB32);
+
     }
     return cvImage;
 }

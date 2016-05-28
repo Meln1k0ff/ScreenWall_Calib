@@ -55,7 +55,7 @@ void CaptureThread::run()
 }
 
 /**
- * @brief CaptureThread::connectToCamera            Подключение видеозахвата
+ * @brief CaptureThread::connectToCamera            Подключение к камере
  * @return
  */
 bool CaptureThread::connectToCamera()
@@ -81,21 +81,21 @@ bool CaptureThread::connectToCamera()
 }
 
 /**
-  * @brief CaptureThread::disconnectCamera          Отключение видеозахвата
+  * @brief CaptureThread::disconnectCamera          Отключение от камеры
   * @return
   */
 
  bool CaptureThread::disconnectCamera(){
 
-     // Camera is connected
+
      if(cap_.isOpened())
      {
-         // Disconnect camera
+
          cap_.release();
          isStreaming_  = false;
          return true;
      }
-     // Camera is NOT connected
+     // Камера не подключена
      else
          return false;
  }
@@ -161,6 +161,6 @@ bool CaptureThread::connectToCamera()
 
  void CaptureThread::resume()
  {
-     //    suspendManager_.wakeAll();
+
      suspended_ = false;
  }

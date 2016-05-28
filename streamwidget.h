@@ -38,7 +38,7 @@ public:
     ~StreamWidget();
     void setData(QImage image);
     void computeScaleOffsets(float & scale, float & offsetX, float & offsetY);   
-    void setPixmapSize(int width,int height);
+
     void clearViewport();    
     QPixmap pixmap() const;
 signals:

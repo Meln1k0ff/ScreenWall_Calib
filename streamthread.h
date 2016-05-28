@@ -35,8 +35,6 @@ private:
     volatile bool doStop;
     bool isStreaming;
 
-//    Camera camera_;
-
     QMutex doStopMutex;
     QMutex processingMutex;
 
@@ -47,8 +45,7 @@ private:
 
 
 signals:
-    void newFrame(const QImage &frame); //sends signal to update GUI Thread
-
+    void newFrame(const QImage &frame);
 };
 
 #endif // STREAMTHREAD_H

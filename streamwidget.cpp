@@ -7,8 +7,6 @@
 StreamWidget::StreamWidget(QWidget * parent) : QWidget(parent)
 {
 
-//    this->setMouseTracking(true);
-
     streamLabel_ = new QLabel(parent);
     streamLabel_->setScaledContents(true);
 
@@ -75,11 +73,7 @@ void StreamWidget::computeScaleOffsets(float &scale, float &offsetX, float &offs
         }
 }
 
-void StreamWidget::setPixmapSize(int width, int height)
-{
-//    QImage *img = new QImage();
 
-}
 
 void StreamWidget::clearViewport()
 {

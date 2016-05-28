@@ -45,11 +45,19 @@ void StreamThread::run()
           emit newFrame(frame_);
     }
 }
+/**
+ * @brief StreamThread::deviceNumber                Номер устройства видеозахвата
+ * @return
+ */
 
 int StreamThread::deviceNumber() const
 {
     return deviceNumber_;
 }
+/**
+ * @brief StreamThread::setDeviceNumber
+ * @param deviceNumber
+ */
 
 void StreamThread::setDeviceNumber(int deviceNumber)
 {

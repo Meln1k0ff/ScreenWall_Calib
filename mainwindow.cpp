@@ -38,7 +38,7 @@ ui(new Ui::MainWindow)
     id_ = 0;
 
     sharedImageBuffer = new SharedImageBuffer();
-//    gridWidget = new GridWidget(camera_,ui->streamWidget,0);
+
 
     ui->streamWidget->setMouseTracking(true);
     ui->screenImage->setScaledContents(true);
@@ -76,7 +76,7 @@ ui(new Ui::MainWindow)
 
     int res = computeRatio(camWidth_,camHeight_);
 
-    qDebug() << "compute ratio finished";
+
 
     if (res == -1){
         qDebug() << "unknown screen resolution";
@@ -99,7 +99,6 @@ ui(new Ui::MainWindow)
 MainWindow::~MainWindow()
 {
     stopProcessing();
-//    disconnect(camera_, SIGNAL(imageReceived(const cv::Mat &)), this, SLOT(update(const cv::Mat &)));
 
     disconnect(ui->camVendorIDBox,SIGNAL(activated(int)),this,SLOT(showAllCamResolutions(int)));
     disconnect(ui->camVendorIDBox,SIGNAL(activated(int)),this,SLOT(selectCamera(int)));
@@ -123,8 +122,7 @@ int MainWindow::getMonitorWidth(){
     QString widthStr = ui->monResolBox->currentText();
     QStringList resolList = widthStr.split("x");
     widthStr = resolList.first();
-    /*qDebug() << "width1 = ";
-    qDebug() << resolList.last();*/
+
     int width = widthStr.toInt(0,10);
     return width;
 }
@@ -181,7 +179,7 @@ void MainWindow::showAllMonResolutions(int displayIndex){
 
     QString dispName = ui->monVendorIDBox->currentText();
     qDebug() << "dispName====" <<dispName;
-    LPCTSTR device;
+
     DEVMODE dm = { 0 };
 
     DISPLAY_DEVICE dd;
@@ -205,13 +203,11 @@ void MainWindow::showAllMonResolutions(int displayIndex){
                 if ( (dm.dmBitsPerPel == 8) || (dm.dmBitsPerPel == 16) ){
                     return;
                 }
-//                if (( dm.dmPelsWidth <= defaultDisplayWidth_ ) && (dm.dmPelsHeight <= defaultDisplayHeight_)) {
+
                    ui->monResolBox->addItem(QString::number(dm.dmPelsWidth,10) + "x" + QString::number(dm.dmPelsHeight,10)+"x"+ QString::number(dm.dmBitsPerPel,10));
-//                }
-//                else
-//                    return;
+
             }
-//        }
+
          switch (displayIndex){
             case 0:
                  ui->screenImage->setPixmap(QPixmap::fromImage(QImage(":/images/images/1pr.png")));
@@ -241,9 +237,13 @@ void MainWindow::showAllCamResolutions(int cameraIndex)
          ui->camResolBox->addItem(resol);         
     }
 }
-
+/**
+ * @brief MainWindow::selectCamera                  Выбор камеры.
+ * @param cameraIndex
+ */
 void MainWindow::selectCamera(int cameraIndex)
 {
+    //При первом запуске приложения
    if (initialStart_){
 
        graphicsScene->resetFrame();
@@ -253,7 +253,7 @@ void MainWindow::selectCamera(int cameraIndex)
        startProcessing(id_);
    }
    else {
-
+        //При переключении между  камерами\разрешениями
        qDebug() << "non initialStart_";
        stopProcessing();
        id_ = cameraIndex;
@@ -401,7 +401,7 @@ void MainWindow::saveSnapshots(const QPixmap &cameraShot, const QPixmap &gridSho
  */
 void MainWindow::resizeDisplayResolution()
 {
-//    ui->startButton->setEnabled(true);
+
         DEVMODEW dm;
         LPDEVMODE pdm;
         long retval;
@@ -637,7 +637,6 @@ HRESULT MainWindow::CamCaps(IBaseFilter *pBaseFilter)
 
         vector<SIZE> modes;
 
-//        qDebug() << "Available resolutions = " << QString::fromStdWString(pInfo.achName);
         int cnt =0;
         for(;;)
         {
@@ -645,20 +644,18 @@ HRESULT MainWindow::CamCaps(IBaseFilter *pBaseFilter)
             if(hr!=S_OK){break;}
 
             if ( (pmt->formattype == FORMAT_VideoInfo) &&
-                //(pmt->subtype == MEDIASUBTYPE_RGB24) &&
+
                 (pmt->cbFormat >= sizeof(VIDEOINFOHEADER)) &&
                 (pmt->pbFormat != NULL) )
             {
                 VIDEOINFOHEADER *pVIH = (VIDEOINFOHEADER*)pmt->pbFormat;
                 SIZE s;
-                // Get frame size
+                // размер кадра
                 s.cy=pVIH->bmiHeader.biHeight;
                 s.cx=pVIH->bmiHeader.biWidth;
-                // Битрейт
-//                unsigned int bitrate=pVIH->dwBitRate;
+
                 modes.push_back(s);
-                // Bits per pixel
-//                unsigned int bitcount=pVIH->bmiHeader.biBitCount;
+
                 REFERENCE_TIME t=pVIH->AvgTimePerFrame; // blocks (100ns) per frame
                 int FPS=floor(10000000.0/static_cast<double>(t));
               //  printf("Size: x=%d\ty=%d\tFPS: %d\t bitrate: %ld\tbit/pixel:%ld\n",s.cx,s.cy,FPS,bitrate,bitcount);
@@ -827,13 +824,12 @@ void MainWindow::searchDisplays()
 
     showAllMonResolutions( ui->monVendorIDBox->currentIndex() );
 
-//    int dispNum =  ui->monVendorIDBox->currentIndex();
     monitorsFound = true;
 }
 
 /**/
 /**
- * @brief MainWindow::update                    Стрим камеры
+ * @brief MainWindow::update                    Стрим камеры. В StreamWidget отображается видео
  * @param image
  */
 void MainWindow::updateFrame(QImage image){
@@ -847,9 +843,7 @@ void MainWindow::updateFrame(QImage image){
  */
 void MainWindow::startProcessing(int cameraIndex){
 
-//    QString indexstr = ui->camVendorIDBox->currentText();
-//    indexstr = indexstr.left(1); // subString contains "cam number"
-//    int index = indexstr.toInt(0,10);
+
     id_ = cameraIndex;
     Buffer<Mat> *imageBuffer = new Buffer<Mat>(100);
     sharedImageBuffer->add(id_, imageBuffer, true);
@@ -882,12 +876,6 @@ void MainWindow::startProcessing(int cameraIndex){
  * @brief MainWindow::stopProcessing            Останавливает стрим
  */
 void MainWindow::stopProcessing(){
-//    if(camera_)
-//    {
-//        disconnect(camera_, SIGNAL(imageReceived(const cv::Mat &)), this, SLOT(update(const cv::Mat &)));
-
-//        camera_->stop();
-//    }
 
     if (captureThread_->disconnectCamera()){
 
@@ -912,7 +900,6 @@ void MainWindow::stopProcessing(){
      qDebug() << "camera stopped with id=" << id_;
 
     }
-    //    delete streamThread_,captureThread_;
 }
 
 /**
@@ -1014,7 +1001,7 @@ void MainWindow::on_startButton_clicked()
          dm.dmBitsPerPel = dispBpp;
            pdm = &dm;
 
-    //     //изменение разрешения конкретного экрана, указанного в параметрах
+         //изменение разрешения конкретного экрана, указанного в параметрах
          retval = ChangeDisplaySettingsEx(dd.DeviceName,pdm,NULL,CDS_UPDATEREGISTRY,NULL);
          if (retval != DISP_CHANGE_SUCCESSFUL ){
              qDebug() << "error!";
@@ -1037,7 +1024,7 @@ void MainWindow::on_startButton_clicked()
 
 /*Действия из меню*/
 
-/**/
+
 /**
  * @brief MainWindow::on_actionAbout_triggered          Действие вызывает окно "О программе"
  */
@@ -1060,7 +1047,7 @@ void MainWindow::on_actionQuit_triggered()
  * @brief MainWindow::computeRatio                      Расчет соотношения сторон для масштабирования окна стрима.
  *                                                      Нужен для правильного масштабирования. Нужно проверить на как можно
  *                                                      большем количестве камер - есть особые разрешения камер, которые не
- *                                                      подходят под стандарты.
+ *                                                      подходят под стандарты (VGA,SXGA,HD и т.д).
  * @param width
  * @param height
  * @return
@@ -1078,14 +1065,12 @@ int MainWindow::computeRatio(int &width, int &height)
 
     qDebug() << "ratio="<<ratio;
 
-//  if (ratio != prevRatio_){
-
     if (ratio == HD_RATIO_SIZE) {
         ui->streamWidget->clearViewport();
         if ((width < HD_WIDTH) || (height < HD_HEIGHT)){
-/            ui->streamWidget->setFixedSize(width,height);
+             ui->streamWidget->setFixedSize(width,height);
              ui->graphicsView->setFixedSize(width,height);
-//             graphicsScene->setSceneRect(0,0,width,height);
+
         }
         else {
             ui->streamWidget->setFixedSize(HD_WIDTH,HD_HEIGHT);

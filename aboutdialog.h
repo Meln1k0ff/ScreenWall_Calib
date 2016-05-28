@@ -6,6 +6,9 @@
 namespace Ui {
 class AboutDialog;
 }
+/**
+ * @brief The AboutDialog class                     Диалоговое окно с описанием приложения
+ */
 
 class AboutDialog : public QDialog
 {
